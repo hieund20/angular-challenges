@@ -1,1 +1,45 @@
 <p>form-validation works!</p>
+<div class="form-validation">
+  @if(!isSubmit) {
+  <form [formGroup]="profileForm" (ngSubmit)="handleSubmit()">
+    <h2>Profile Form</h2>
+    <div>
+      <label
+        >Username
+        <input type="text" formControlName="userName" required />
+      </label>
+      <div
+        *ngIf="
+          profileForm.get('userName')?.invalid &&
+          (profileForm.get('userName')?.dirty ||
+            profileForm.get('userName')?.touched)
+        "
+      >
+        <div *ngIf="profileForm.get('userName')?.hasError('required')">
+          <div>Username is required.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <label
+        >Email
+        <input type="text" formControlName="email" required />
+      </label>
+    </div>
+    <div>
+      <label
+        >Phone
+        <input type="text" formControlName="phone" required />
+      </label>
+    </div>
+    <button type="submit" [disabled]="profileForm.invalid">Submit</button>
+  </form>
+  } @else {
+  <div class="infor">
+    <h2>Profile Form</h2>
+    <p>Name: {{ profileForm.value.userName }}</p>
+    <p>Email: {{ profileForm.value.email }}</p>
+    <p>Phone: {{ profileForm.value.phone }}</p>
+  </div>
+  }
+</div>

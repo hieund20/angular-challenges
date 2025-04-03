@@ -1,0 +1,20 @@
+.form-validation {
+  width: 80%;
+  margin: 0 auto;
+
+  & button {
+    margin-top: 16px;
+    background-color: green;
+    color: white;
+    border-radius: 8px;
+    padding: 8px;
+    border: none;
+
+    cursor: pointer;
+  }
+}
+
+.infor {
+  width: 80%;
+  margin: 0 auto;
+}
