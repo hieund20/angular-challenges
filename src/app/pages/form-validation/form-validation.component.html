@@ -1,13 +1,12 @@
-<p>form-validation works!</p>
 <div class="form-validation">
   @if(!isSubmit) {
   <form [formGroup]="profileForm" (ngSubmit)="handleSubmit()">
-    <h2>Profile Form</h2>
-    <div>
-      <label
-        >Username
-        <input type="text" formControlName="userName" required />
-      </label>
+    <h2 class="mb-[16px] font-bold">Profile Form</h2>
+    <div class="mb-[16px]">
+      <div class="flex justify-between">
+        <label for="userName" class="font-semibold">Username</label>
+        <input id="userName" type="text" formControlName="userName" required />
+      </div>
       <div
         *ngIf="
           profileForm.get('userName')?.invalid &&
@@ -15,24 +14,72 @@
             profileForm.get('userName')?.touched)
         "
       >
-        <div *ngIf="profileForm.get('userName')?.hasError('required')">
+        <div
+          class="text-red-500"
+          *ngIf="profileForm.get('userName')?.hasError('required')"
+        >
           <div>Username is required.</div>
         </div>
       </div>
     </div>
-    <div>
-      <label
-        >Email
-        <input type="text" formControlName="email" required />
-      </label>
+    <div class="mb-[16px]">
+      <div class="flex justify-between">
+        <label for="email" class="font-semibold">Email </label>
+        <input id="email" type="text" formControlName="email" required />
+      </div>
+      <div
+        *ngIf="
+          (profileForm.get('email')?.invalid &&
+            profileForm.get('email')?.dirty) ||
+          profileForm.get('email')?.touched
+        "
+      >
+        <div
+          class="text-red-500"
+          *ngIf="profileForm.get('email')?.hasError('required')"
+        >
+          <div>Email is required</div>
+        </div>
+        <div
+          class="text-red-500"
+          *ngIf="profileForm.get('email')?.hasError('email')"
+        >
+          <div>Email is invalid</div>
+        </div>
+      </div>
     </div>
     <div>
-      <label
-        >Phone
+      <div class="flex justify-between">
+        <label class="font-semibold">Phone</label>
         <input type="text" formControlName="phone" required />
-      </label>
+      </div>
+      <div
+        *ngIf="
+          profileForm.get('phone')?.invalid &&
+          (profileForm.get('phone')?.dirty || profileForm.get('phone')?.touched)
+        "
+      >
+        <div
+          class="text-red-500"
+          *ngIf="profileForm.get('phone')?.hasError('required')"
+        >
+          <div>Phone is required</div>
+        </div>
+        <div
+          class="text-error"
+          *ngIf="profileForm.get('phone')?.hasError('minLength')"
+        >
+          <div>Phone must be at least 10 characters long</div>
+        </div>
+        <div
+          class="text-red-500"
+          *ngIf="profileForm.get('phone')?.hasError('pattern')"
+        >
+          <div>Enter only number</div>
+        </div>
+      </div>
     </div>
-    <button type="submit" [disabled]="profileForm.invalid">Submit</button>
+    <button type="submit" class="w-[100%]">Submit</button>
   </form>
   } @else {
   <div class="infor">

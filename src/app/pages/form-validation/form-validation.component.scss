@@ -1,6 +1,7 @@
 .form-validation {
-  width: 80%;
-  margin: 0 auto;
+  width: 30%;
+  margin: 48px auto;
+  padding: 16px;
 
   & button {
     margin-top: 16px;
@@ -11,6 +12,11 @@
     border: none;
 
     cursor: pointer;
+  }
+
+  & input {
+    border: 1px solid gray;
+    border-radius: 4px;
   }
 }
 

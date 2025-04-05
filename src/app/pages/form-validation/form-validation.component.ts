@@ -19,11 +19,18 @@ export class FormValidationComponent {
   profileForm = new FormGroup({
     email: new FormControl<string>('', [Validators.required, Validators.email]),
     userName: new FormControl<string>('', Validators.required),
-    phone: new FormControl<string>('', Validators.required),
+    phone: new FormControl<string>('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.pattern('^[0-9]*$'),
+    ]),
   });
 
   handleSubmit() {
-    console.log(this.profileForm.controls.email);
+    if (this.profileForm.invalid) {
+      this.profileForm.markAllAsTouched();
+      return;
+    }
     this.isSubmit = true;
   }
 }
