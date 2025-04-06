@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -24,7 +24,12 @@ export class FormValidationComponent {
       Validators.minLength(10),
       Validators.pattern('^[0-9]*$'),
     ]),
+    avatar: new FormControl<string>('/assets/images/default-profile.jpg'),
   });
+
+  @ViewChild('inputUploadImage') inputUploadImage:
+    | ElementRef<HTMLInputElement>
+    | undefined;
 
   handleSubmit() {
     if (this.profileForm.invalid) {
@@ -32,5 +37,23 @@ export class FormValidationComponent {
       return;
     }
     this.isSubmit = true;
+  }
+
+  triggerFileInput() {
+    this.inputUploadImage?.nativeElement.click();
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const file = input.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.profileForm.controls.avatar.setValue(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
   }
 }

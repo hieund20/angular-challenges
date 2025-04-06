@@ -3,6 +3,21 @@
   <form [formGroup]="profileForm" (ngSubmit)="handleSubmit()">
     <h2 class="mb-[16px] font-bold">Profile Form</h2>
     <div class="mb-[16px]">
+      <div
+        class="w-[100px] h-[100px] border rounded-xl text-center flex items-center cursor-pointer"
+        (click)="triggerFileInput()"
+      >
+        <img [src]="profileForm.get('avatar')?.value" class="rounded-xl" />
+      </div>
+      <input
+        type="file"
+        hidden
+        #inputUploadImage
+        (change)="onFileSelected($event)"
+      />
+      <span class="text-sm">Change the avatar</span>
+    </div>
+    <div class="mb-[16px]">
       <div class="flex justify-between">
         <label for="userName" class="font-semibold">Username</label>
         <input id="userName" type="text" formControlName="userName" required />
@@ -66,7 +81,7 @@
           <div>Phone is required</div>
         </div>
         <div
-          class="text-error"
+          class="text-red-500"
           *ngIf="profileForm.get('phone')?.hasError('minLength')"
         >
           <div>Phone must be at least 10 characters long</div>
@@ -83,7 +98,12 @@
   </form>
   } @else {
   <div class="infor">
-    <h2>Profile Form</h2>
+    <h2 class="mb-[16px] font-bold">Profile Form</h2>
+    <div
+      class="w-[100px] h-[100px] border rounded-xl text-center flex items-center"
+    >
+      <img [src]="profileForm.value.avatar" />
+    </div>
     <p>Name: {{ profileForm.value.userName }}</p>
     <p>Email: {{ profileForm.value.email }}</p>
     <p>Phone: {{ profileForm.value.phone }}</p>
